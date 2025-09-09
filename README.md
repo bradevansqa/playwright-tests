@@ -1,3 +1,15 @@
+[![Playwright Tests](https://github.com/bradevansqa/playwright-tests/actions/workflows/playwright.yml/badge.svg)](https://github.com/bradevansqa/playwright-tests/actions/workflows/playwright.yml)
+
+# Playwright Test Automation
+
+This repository contains Playwright end-to-end tests for the Sauce Demo website.
+
+## Overview
+
+- Tests include login, logout, add-to-cart, checkout, sorting, and UI validations.
+- Uses Playwright with TypeScript and fixtures for reusable test setup.
+- HTML reports are generated for each test run.
+
 # Playwright E2E Testing Project 🎭
 
 This project demonstrates **end-to-end test automation** using [Playwright](https://playwright.dev/) with TypeScript.  
