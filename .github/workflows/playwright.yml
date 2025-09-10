@@ -8,6 +8,11 @@ on:
   schedule:
     - cron: "0 2 * * *" # nightly run at 2AM UTC
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     timeout-minutes: 60
@@ -40,7 +45,7 @@ jobs:
           retention-days: 30
 
       - name: Deploy Playwright HTML report to GitHub Pages
-        if: always()
+        if: always() && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
