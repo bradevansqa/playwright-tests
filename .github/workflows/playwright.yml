@@ -9,9 +9,10 @@ on:
     - cron: "0 2 * * *" # nightly run at 2AM UTC
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
+  actions: write
 
 jobs:
   test:
