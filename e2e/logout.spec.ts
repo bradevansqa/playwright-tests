@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures';
+import { test, expect } from '../fixtures/fixtures';
 
 test('Logout feature functionality', async ({ page, login }) => {
   await login(); 

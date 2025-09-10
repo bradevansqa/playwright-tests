@@ -1,4 +1,4 @@
-import {test, expect } from './fixtures';
+import {test, expect } from '../fixtures/fixtures';
 
 test('Footer social links point to correct page', async ({ page, login }) => {
     await login();
