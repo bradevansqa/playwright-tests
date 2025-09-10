@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main, master ]
   schedule:
-    - cron: "0 2 * * *"  # nightly run at 2AM UTC
+    - cron: "0 2 * * *" # nightly run at 2AM UTC
 
 jobs:
   test:
@@ -31,7 +31,7 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test --reporter=dot,line,html
 
-      - name: Upload Playwright HTML report
+      - name: Upload Playwright HTML report (artifact)
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -46,3 +46,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./playwright-report
           publish_branch: gh-pages
+          force_orphan: true
