@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/fixtures';
+import { test, expect } from '../fixtures';
 
 test('Add Product and Checkout functionality', async ({ page, login }) => {
   await login();

@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/fixtures';
+import { test, expect } from '../fixtures';
 
 test('Product details page shows correct info', async ({ page, login }) => {
     await login();

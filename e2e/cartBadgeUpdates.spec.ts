@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/fixtures';
+import { test, expect } from '../fixtures';
 
 test('Cart badge updates correctly', async ({ page, login }) => {
   await login();

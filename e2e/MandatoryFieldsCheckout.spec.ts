@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/fixtures';
+import { test, expect } from '../fixtures';
 
 test('Checkout requires mandatory fields', async ({ page, login }) => {
   await login();

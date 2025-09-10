@@ -1,5 +1,5 @@
 import { log } from 'console';
-import { test, expect } from '../fixtures/fixtures';
+import { test, expect } from '../fixtures';
 
 test('Multiple items in cart', async ({ page, login }) => {
   await login(); 
