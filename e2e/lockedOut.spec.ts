@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures';
+import { test, expect } from '../fixtures';
 
 test('Locked out user cannot log in', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');

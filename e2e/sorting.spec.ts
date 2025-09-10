@@ -1,7 +1,11 @@
-import { test, expect } from './fixtures';
+import { test, expect } from '@playwright/test';
 
-test('Sorting feature functionality', async ({ page, login }) => {
-  await login(); 
+test('Sorting feature functionality', async ({ page }) => {
+  // Replace this with your actual login logic, for example:
+  await page.goto('https://your-app-url.com/login');
+  await page.fill('[data-test="username"]', 'your-username');
+  await page.fill('[data-test="password"]', 'your-password');
+  await page.click('[data-test="login-button"]');
   await page.locator('.title:has-text("Products")').waitFor({ state: 'visible' });
   await page.locator('[data-test="product-sort-container"]').selectOption('lohi');
 
