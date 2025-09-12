@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'mcr.microsoft.com/playwright:focal'
-            args '--shm-size=1gb'
+            image 'mcr.microsoft.com/playwright:focal'  // Official Playwright Docker image
+            args '--shm-size=1gb'                       // Avoid browser crashes
         }
     }
 
