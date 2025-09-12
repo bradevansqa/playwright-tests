@@ -6,6 +6,10 @@ pipeline {
         }
     }
 
+    environment {
+        NODE_ENV = 'test'
+    }
+
     triggers {
         // Run nightly at 1:00 AM
         cron('H 1 * * *')
@@ -36,5 +40,23 @@ pipeline {
         stage('Publish Test Results') {
             steps {
                 echo "Publishing JUnit test results..."
-                junit 'test-results/*.xml'
+                junit 'playwright-report/results.xml'
+            }
+        }
+    }
 
+    post {
+        always {
+            echo "Cleaning workspace..."
+            cleanWs()
+        }
+
+        success {
+            echo "Pipeline succeeded!"
+        }
+
+        failure {
+            echo "Pipeline failed!"
+        }
+    }
+}
