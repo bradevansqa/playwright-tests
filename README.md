@@ -1,5 +1,9 @@
 [![Playwright Tests](https://github.com/bradevansqa/playwright-tests/actions/workflows/playwright.yml/badge.svg)](https://github.com/bradevansqa/playwright-tests/actions/workflows/playwright.yml)
 
+## 📊 Test Reports
+- [View Latest Playwright Test Report](https://bradevansqa.github.io/playwright-tests/)
+
+
 # Playwright Test Automation
 
 This repository contains Playwright end-to-end tests for the Sauce Demo website.
