@@ -1,9 +1,19 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:18'
+            args '-u root'
+        }
+    }
     stages {
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
+            }
+        }
+        stage('Install Playwright Browsers') {
+            steps {
+                sh 'npx playwright install --with-deps'
             }
         }
         stage('Run Playwright Tests') {
