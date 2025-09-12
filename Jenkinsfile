@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git(
-                    url: 'git@github.com:yourusername/playwright-tests.git',
+                    url: 'https://github.com/bradevansqa/playwright-tests',
                     branch: 'main',
                     credentialsId: 'jenkins-ssh-key'
                 )
