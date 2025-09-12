@@ -1,13 +1,10 @@
 pipeline {
-    agent {
-        docker {
-            image 'mcr.microsoft.com/playwright:focal'  // Official Playwright Docker image
-            args '--shm-size=1gb'                       // Avoid browser crashes
-        }
-    }
+    agent any  // Use the built-in node
 
     environment {
         NODE_ENV = 'test'
+        NODE_VERSION = '18.20.4'
+        PATH = "${WORKSPACE}/node-v${NODE_VERSION}-linux-x64/bin:${PATH}"
     }
 
     triggers {
@@ -16,30 +13,40 @@ pipeline {
     }
 
     stages {
+        stage('Setup Node.js') {
+            steps {
+                sh '''
+                    # Install Node.js if not already in workspace
+                    if [ ! -d "node-v${NODE_VERSION}-linux-x64" ]; then
+                        echo "Downloading Node.js ${NODE_VERSION}..."
+                        curl -sL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz | tar -xJ
+                    fi
+                    node --version
+                    npm --version
+                '''
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
-                echo "Installing npm dependencies..."
                 sh 'npm ci'
             }
         }
 
         stage('Install Playwright Browsers') {
             steps {
-                echo "Installing Playwright browsers..."
                 sh 'npx playwright install --with-deps'
             }
         }
 
         stage('Run Playwright Tests') {
             steps {
-                echo "Running Playwright tests..."
                 sh 'npx playwright test --reporter=line,junit'
             }
         }
 
         stage('Publish Test Results') {
             steps {
-                echo "Publishing JUnit test results..."
                 junit 'playwright-report/results.xml'
             }
         }
@@ -47,7 +54,6 @@ pipeline {
 
     post {
         always {
-            echo "Cleaning workspace..."
             cleanWs()
         }
 
