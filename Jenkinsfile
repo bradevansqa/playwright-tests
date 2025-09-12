@@ -35,5 +35,6 @@ pipeline {
 
         stage('Publish Test Results') {
             steps {
-                echo "Publishing JUnit
+                echo "Publishing JUnit test results..."
+                junit 'test-results/*.xml'
 
