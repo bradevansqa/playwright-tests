@@ -5,8 +5,8 @@ pipeline {
             steps {
                 git(
                     url: 'https://github.com/bradevansqa/playwright-tests',
-                    branch: 'main',
-                    credentialsId: 'jenkins-ssh-key'
+                    branch: 'master',
+                    credentialsId: 'github-jenkins-ci-token'
                 )
             }
         }
