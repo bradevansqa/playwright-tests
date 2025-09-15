@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:focal'
+            args '--shm-size=1gb'
+        }
+    }
 
     stages {
         stage('Install Dependencies') {
@@ -24,6 +29,12 @@ pipeline {
             steps {
                 junit 'playwright-report/results.xml'
             }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
