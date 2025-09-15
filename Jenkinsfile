@@ -1,10 +1,9 @@
 pipeline {
-    agent any  // Use the built-in node
+    agent any
 
     environment {
+        // Make sure Node.js is installed and on the PATH
         NODE_ENV = 'test'
-        NODE_VERSION = '18.20.4'
-        PATH = "${WORKSPACE}/node-v${NODE_VERSION}-linux-x64/bin:${PATH}"
     }
 
     triggers {
@@ -15,38 +14,36 @@ pipeline {
     stages {
         stage('Setup Node.js') {
             steps {
-                sh '''
-                    # Install Node.js if not already in workspace
-                    if [ ! -d "node-v${NODE_VERSION}-linux-x64" ]; then
-                        echo "Downloading Node.js ${NODE_VERSION}..."
-                        curl -sL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz | tar -xJ
-                    fi
-                    node --version
-                    npm --version
-                '''
+                echo "Verifying Node.js and npm..."
+                bat 'node -v'
+                bat 'npm -v'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
+                echo "Installing npm dependencies..."
+                bat 'npm ci'
             }
         }
 
         stage('Install Playwright Browsers') {
             steps {
-                sh 'npx playwright install --with-deps'
+                echo "Installing Playwright browsers..."
+                bat 'npx playwright install --with-deps'
             }
         }
 
         stage('Run Playwright Tests') {
             steps {
-                sh 'npx playwright test --reporter=line,junit'
+                echo "Running Playwright tests..."
+                bat 'npx playwright test --reporter=line,junit'
             }
         }
 
         stage('Publish Test Results') {
             steps {
+                echo "Publishing JUnit test results..."
                 junit 'playwright-report/results.xml'
             }
         }
@@ -54,6 +51,7 @@ pipeline {
 
     post {
         always {
+            echo "Cleaning workspace..."
             cleanWs()
         }
 
