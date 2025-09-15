@@ -1,17 +1,25 @@
 pipeline {
-  agent {
-    docker { image 'mcr.microsoft.com/playwright:focal' }
-  }
-  stages {
-    stage('Install') {
-      steps {
-        sh 'npm ci'
-      }
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/bradevansqa/playwright-tests.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm ci'
+            }
+        }
+        stage('Install Playwright Browsers') {
+            steps {
+                sh 'npx playwright install'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'npx playwright test'
+            }
+        }
     }
-    stage('Run Tests') {
-      steps {
-        sh 'npx playwright test'
-      }
-    }
-  }
 }
