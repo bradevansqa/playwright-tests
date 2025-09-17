@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        NODE_VERSION = '18'
+        // Ensure NODE_ENV is set if needed
+        NODE_ENV = 'test'
     }
 
     stages {
@@ -18,26 +19,33 @@ pipeline {
             }
         }
 
-        stage('Install Playwright Browsers') {
+        stage('Run Playwright Tests') {
             steps {
-                sh 'npx playwright install'
+                // Generate HTML report in fixed folder
+                sh 'npx playwright test --reporter=html --output=playwright-report'
             }
         }
 
-        stage('Run Tests') {
+        stage('Archive Test Reports') {
             steps {
-                sh 'npx playwright test'
+                // Archive the entire HTML report folder
+                archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: false
+            }
+        }
+
+        stage('Optional Debug') {
+            steps {
+                // Only needed if you want to debug what Jenkins sees
+                sh 'ls -alh'
+                sh 'ls -alh playwright-report'
             }
         }
     }
 
     post {
         always {
-            // Archive Playwright HTML reports
-            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
-
-            // Optional: mark build result
-            junit 'playwright-report/**/*.xml'
+            // Optional: keep logs even if build fails
+            junit 'playwright-report/**/*.xml' // only if you output junit files
         }
     }
 }
