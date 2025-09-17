@@ -2,14 +2,13 @@ pipeline {
     agent any
 
     environment {
-        // Ensure NODE_ENV is set if needed
-        NODE_ENV = 'test'
+        CI = 'true'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/bradevansqa/playwright-tests.git', branch: 'master'
+                checkout scm
             }
         }
 
@@ -19,33 +18,32 @@ pipeline {
             }
         }
 
+        stage('Install Playwright Browsers') {
+            steps {
+                sh 'npx playwright install'
+            }
+        }
+
         stage('Run Playwright Tests') {
             steps {
-                // Generate HTML report in fixed folder
+                // Run tests and output HTML report into playwright-report/
                 sh 'npx playwright test --reporter=html --output=playwright-report'
+                // Optional: check files exist
+                sh 'ls -alh playwright-report'
             }
         }
 
         stage('Archive Test Reports') {
             steps {
-                // Archive the entire HTML report folder
+                // Archive the report folder so Artifacts tab appears
                 archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: false
-            }
-        }
-
-        stage('Optional Debug') {
-            steps {
-                // Only needed if you want to debug what Jenkins sees
-                sh 'ls -alh'
-                sh 'ls -alh playwright-report'
             }
         }
     }
 
     post {
         always {
-            // Optional: keep logs even if build fails
-            junit 'playwright-report/**/*.xml' // only if you output junit files
+            echo 'Pipeline finished.'
         }
     }
 }
