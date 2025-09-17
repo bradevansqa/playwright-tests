@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-        CI = 'true'
+        NODE_VERSION = '18'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git url: 'https://github.com/bradevansqa/playwright-tests.git', branch: 'master'
             }
         }
 
@@ -18,32 +18,20 @@ pipeline {
             }
         }
 
-        stage('Install Playwright Browsers') {
-            steps {
-                sh 'npx playwright install'
-            }
-        }
-
         stage('Run Playwright Tests') {
             steps {
-                // Run tests and output HTML report into playwright-report/
-                sh 'npx playwright test --reporter=html --output=playwright-report'
-                // Optional: check files exist
-                sh 'ls -alh playwright-report'
-            }
-        }
-
-        stage('Archive Test Reports') {
-            steps {
-                // Archive the report folder so Artifacts tab appears
-                archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: false
+                sh 'npx playwright test'
             }
         }
     }
 
     post {
         always {
-            echo 'Pipeline finished.'
+            // Archive Playwright HTML report folder
+            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+
+            // Optional: keep console log for reference
+            archiveArtifacts artifacts: '**/*.log', allowEmptyArchive: true
         }
     }
 }
