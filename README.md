@@ -28,6 +28,7 @@ It demonstrates both **traditional test automation** and **AI-assisted test gene
 * Fixtures for reusable test setup
 * GitHub Actions for CI/CD
 * **MCP (Model Context Protocol)** + GitHub Copilot for AI-driven test generation
+* **Jenkins + Docker** for local CI/CD experimentation
 
 ---
 
@@ -76,6 +77,23 @@ This demonstrates the ability to **combine AI-assisted test generation with trad
 
 ---
 
+## ⚙️ Jenkins & Docker Showcase
+
+To demonstrate **CI/CD pipeline setup beyond GitHub Actions**, this project was also integrated with **Jenkins running inside Docker**:
+
+* Jenkins container based on `jenkins/jenkins:lts` image
+* Configured with `docker-compose.yml` to expose the UI at `localhost:8080`
+* Pipeline stages include: Checkout → Install → Run Playwright Tests → Report
+* Sample successful/failed builds are included in the screenshots below:
+
+<p align="center">
+  <img src="screenshots/jenkins-pipeline.png" alt="Jenkins Pipeline Example" width="700"/>
+</p>
+
+> ✅ Recruiter Note: Jenkins and Docker were used locally to showcase pipeline orchestration. The full setup isn’t required to run this project — screenshots and configs are provided for demonstration purposes only.
+
+---
+
 ## 📦 Installation & Running Tests
 
 Clone the repo and install dependencies:
@@ -107,4 +125,3 @@ npx playwright show-report
 * [GitHub Pages Test Reports](https://bradevansqa.github.io/playwright-tests/)
 
 ---
-
