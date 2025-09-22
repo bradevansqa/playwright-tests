@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main, master ]
   schedule:
-    - cron: "0 2 * * *" # nightly run at 2AM UTC
+    - cron: "0 2 * * *" # Nightly run at 2 AM UTC (10 PM Eastern)
 
 permissions:
   contents: write
