@@ -44,8 +44,9 @@ jobs:
           path: playwright-report
           retention-days: 30
 
+      # ✅ Fix: let this run on schedule too
       - name: Deploy Playwright HTML report to GitHub Pages
-        if: always() && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
