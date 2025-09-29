@@ -7,6 +7,7 @@ on:
     branches: [ main, master ]
   schedule:
     - cron: "0 2 * * *" # Nightly run at 2 AM UTC (10 PM Eastern)
+  workflow_dispatch: # 👈 Manual trigger from GitHub Actions UI
 
 permissions:
   contents: write
@@ -15,7 +16,6 @@ permissions:
 
 jobs:
   test:
-    name: Run Playwright Tests
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
@@ -53,8 +53,4 @@ jobs:
           publish_dir: ./playwright-report
           publish_branch: gh-pages
           force_orphan: true
-          commit_message: |
-            Deploy Playwright Report 🚀
-            Run: ${{ github.run_number }}
-            Trigger: ${{ github.event_name }}
-            Commit: ${{ github.sha }}
+          commit_message: "Nightly or Manual Test Run 🚀"
