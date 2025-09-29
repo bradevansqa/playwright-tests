@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   test:
+    name: Run Playwright Tests
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
@@ -52,4 +53,8 @@ jobs:
           publish_dir: ./playwright-report
           publish_branch: gh-pages
           force_orphan: true
-          commit_message: "Nightly Test Run 🚀"  # ✅ shows up in deployments
+          commit_message: |
+            Deploy Playwright Report 🚀
+            Run: ${{ github.run_number }}
+            Trigger: ${{ github.event_name }}
+            Commit: ${{ github.sha }}
