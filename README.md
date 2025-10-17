@@ -74,36 +74,7 @@ Explore https://www.saucedemo.com/ and generate Playwright tests for:
 
 This demonstrates the ability to **combine AI-assisted test generation with traditional Playwright automation**, speeding up test coverage while keeping maintainable, reviewed test scripts.
 
----
 
-## 📦 Installation & Running Tests
-
-Clone the repo and install dependencies:
-
-```bash
-git clone https://github.com/bradevansqa/playwright-tests.git
-cd playwright-tests
-npm install
-```
-
-Run tests:
-
-```bash
-npx playwright test
-```
-
-View HTML report:
-
-```bash
-npx playwright show-report
-```
-
----
-
-## 🔗 Links
-
-* [Playwright Docs](https://playwright.dev/)
-* [Sauce Demo Test Site](https://www.saucedemo.com/)
 * [GitHub Pages Test Reports](https://bradevansqa.github.io/playwright-tests/)
 
 ---
