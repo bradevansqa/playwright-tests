@@ -1,11 +1,5 @@
 # 🤖🎭  Playwright Tests for Sauce Demo
 
-
-📊 **Test Reports**  
-View Latest Playwright Test Report
-
----
-
 ## ✅ Overview
 
 This repository contains Playwright end-to-end tests for the Sauce Demo website. It demonstrates both:
